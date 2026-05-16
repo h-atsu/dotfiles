@@ -9,12 +9,12 @@ dotfiles/
 ├── flake.nix                  # エントリーポイント
 ├── modules/
 │   ├── darwin/
-│   │   ├── default.nix        # システムパッケージ、ユーザー設定
+│   │   ├── default.nix        # システムパッケージ、Homebrew cask設定
 │   │   └── system.nix         # macOS設定（Dock, Finder, キーリピート等）
 │   └── home/
 │       ├── default.nix        # home-managerエントリーポイント
-│       ├── wezterm.nix        # WezTermのインストール＋設定
-│       └── emacs.nix          # Emacsのインストール＋設定
+│       ├── wezterm.nix        # WezTerm設定ファイルの配置
+│       └── emacs.nix          # Emacs設定ファイルの配置
 └── config/
     ├── wezterm/
     │   └── wezterm.lua        # WezTerm設定ファイル
@@ -35,10 +35,10 @@ nix-darwin が未インストールの状態から適用する場合:
 
 ```bash
 cd ~/dotfiles
-sudo nix run nix-darwin -- switch --flake .
+sudo nix run nix-darwin -- switch --flake .#macbook
 ```
 
-> ホスト名（`HadanoMacBook-Air`）を自動検出するため `#HadanoMacBook-Air` は省略できます。
+> `darwinConfigurations` 名を `macbook` にしているので、`#macbook` を明示して適用します。
 
 ## 日常的な使い方
 
@@ -46,15 +46,28 @@ sudo nix run nix-darwin -- switch --flake .
 
 ```bash
 cd ~/dotfiles
-darwin-rebuild switch --flake .
+sudo darwin-rebuild switch --flake .#macbook
 ```
+
+### アプリ設定の運用
+
+`config/` 配下のファイルを正本として管理し、Home Manager が `~/.config` や `~/.emacs.d` に配置します。
+GUI アプリ本体は `nix-darwin` から Homebrew cask 経由でインストールします。
+
+- `config/wezterm/wezterm.lua` → `~/.config/wezterm/wezterm.lua`
+- `config/emacs/init.el` → `~/.emacs.d/init.el`
+
+そのため、普段の試行錯誤は `config/` 配下のファイルを直接編集するのが基本です。
+WezTerm のようにリロードできるアプリは、設定を編集してすぐ見た目を確認できます。
+
+新しいファイルを追加したり、配置先を変えたりした場合は `sudo darwin-rebuild switch --flake .#macbook` を実行してください。
 
 ### よく使うコマンド
 
 | コマンド | 説明 |
 |---|---|
-| `darwin-rebuild switch --flake .` | 設定を適用 |
-| `darwin-rebuild check --flake .` | 適用前に構文チェック |
+| `sudo darwin-rebuild switch --flake .#macbook` | 設定を適用 |
+| `darwin-rebuild check --flake .#macbook` | 適用前に構文チェック |
 | `nix flake update` | すべての入力を最新に更新 |
 | `nix flake update nixpkgs` | nixpkgsだけ更新 |
 
@@ -64,7 +77,7 @@ darwin-rebuild switch --flake .
 
 1. `modules/home/` に `<app>.nix` を作成
 2. `modules/home/default.nix` の `imports` に追加
-3. `darwin-rebuild switch` で適用
+3. `sudo darwin-rebuild switch --flake .#macbook` で適用
 
 例: `modules/home/git.nix`
 
@@ -72,7 +85,7 @@ darwin-rebuild switch --flake .
 { ... }: {
   programs.git = {
     enable = true;
-    userName = "atsu";
+    userName = "hardy";
     userEmail = "your@email.com";
   };
 }

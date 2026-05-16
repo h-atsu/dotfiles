@@ -18,10 +18,29 @@
   # System packages (available to all users)
   environment.systemPackages = with pkgs; [
     git
-    ripgrep
     tree
-    wget
+    htop
+    uv
+    rustup
   ];
+
+  homebrew = {
+    enable = true;
+    onActivation = {
+      cleanup = "uninstall";
+      extraFlags = [ "--verbose" ];
+    };
+    casks = [
+      "docker-desktop"
+      "emacs-app"
+      "google-chrome"
+      "visual-studio-code"
+      "wezterm"
+      "discord"
+      "spotify"
+      "raycast"
+    ];
+  };
 
   # Required for user-level system.defaults (dock, finder, NSGlobalDomain)
   system.primaryUser = "atsu";

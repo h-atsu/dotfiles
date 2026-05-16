@@ -1,5 +1,5 @@
 {
-  description = "atsu's dotfiles";
+  description = "macOS dotfiles";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -14,7 +14,7 @@
   };
 
   outputs = { self, nixpkgs, nix-darwin, home-manager, ... }: {
-    darwinConfigurations."HadanoMacBook-Air" = nix-darwin.lib.darwinSystem {
+    darwinConfigurations."macbook" = nix-darwin.lib.darwinSystem {
       system = "aarch64-darwin";
       modules = [
         ./modules/darwin/default.nix
