@@ -71,8 +71,9 @@
     };
   };
 
-  system.activationScripts.createScreenshotDirectory.text = ''
+  system.activationScripts.configureScreenshotDirectory.text = ''
     mkdir -p /Users/atsu/Pictures/Screenshots
     chown atsu:staff /Users/atsu/Pictures/Screenshots
+    killall SystemUIServer 2>/dev/null || true
   '';
 }

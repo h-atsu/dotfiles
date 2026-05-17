@@ -2,6 +2,7 @@
   defaultBranch = main
 
 [core]
+  editor = emacs -nw
   excludesfile = ~/.config/git/conf.d/global.gitignore
 
 [color]
