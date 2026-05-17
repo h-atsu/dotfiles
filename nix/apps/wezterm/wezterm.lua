@@ -5,6 +5,7 @@ config.automatically_reload_config = true
 
 -- Font
 config.font = wezterm.font_with_fallback({
+  "JetBrains Mono",
   "PlemolJP Console",
   "Symbols Nerd Font Mono",
 })

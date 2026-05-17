@@ -11,7 +11,8 @@
 (set-face-attribute 'region nil :background "#3a3f5a" :foreground "#ffffff")
 
 ;; Font
-(set-face-attribute 'default nil :family "PlemolJP Console" :height 140)
+(set-face-attribute 'default nil :family "JetBrains Mono" :height 140)
+(set-fontset-font t 'latin "JetBrains Mono")
 (set-fontset-font t 'japanese-jisx0208 "PlemolJP Console")
 
 ;; Indentation
