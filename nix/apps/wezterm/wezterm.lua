@@ -4,7 +4,10 @@ local config = wezterm.config_builder()
 config.automatically_reload_config = true
 
 -- Font
-config.font = wezterm.font("JetBrains Mono")
+config.font = wezterm.font_with_fallback({
+  "PlemolJP Console",
+  "Symbols Nerd Font Mono",
+})
 config.font_size = 12.0
 config.use_ime = true
 

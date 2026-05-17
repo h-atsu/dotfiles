@@ -8,13 +8,18 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (global-display-line-numbers-mode t)
+(set-face-attribute 'region nil :background "#3a3f5a" :foreground "#ffffff")
 
 ;; Font
-(set-face-attribute 'default nil :height 140)
+(set-face-attribute 'default nil :family "PlemolJP Console" :height 140)
+(set-fontset-font t 'japanese-jisx0208 "PlemolJP Console")
 
 ;; Indentation
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
+
+;; Key bindings
+(keyboard-translate ?\C-h ?\C-?)
 
 ;; Package manager (use-package)
 (require 'package)

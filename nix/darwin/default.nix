@@ -2,6 +2,7 @@
   imports = [
     ./system.nix
     ./users.nix
+    ./fonts.nix
     ./nix.nix
     ./homebrew.nix
     ../cli
