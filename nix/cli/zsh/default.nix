@@ -24,7 +24,7 @@
         la = "eza --icons --group-directories-first --all";
         lt = "eza --icons --group-directories-first --tree --level=2";
         emacs = "emacs -nw";
-        rm = "trash-put";
+        rm = "trash";
       };
 
       initContent = ''

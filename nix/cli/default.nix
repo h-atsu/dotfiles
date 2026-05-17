@@ -6,7 +6,7 @@
     ./rustup
     ./starship
     ./tree
-    ./trash-cli
+    ./trash
     ./uv
     ./zsh
   ];
