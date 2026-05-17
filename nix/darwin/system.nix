@@ -8,6 +8,13 @@
     dock = {
       autohide = true;
       orientation = "left";
+      persistent-apps = [
+        "/Applications/WezTerm.app"
+        "/Applications/Visual Studio Code.app"
+        "/Applications/Google Chrome.app"
+        "/Applications/Obsidian.app"
+        "/Applications/Spotify.app"
+      ];
       show-recents = false;
       tilesize = 48;
     };
