@@ -23,6 +23,7 @@
       ApplePressAndHoldEnabled = false;
       InitialKeyRepeat = 15;
       KeyRepeat = 2;
+      "com.apple.trackpad.scaling" = 3.0;
       NSAutomaticSpellingCorrectionEnabled = false;
       NSAutomaticCapitalizationEnabled = false;
     };

@@ -13,18 +13,10 @@
     };
   };
 
-  outputs = { self, nixpkgs, nix-darwin, home-manager, ... }: {
+  outputs = inputs@{ nix-darwin, ... }: {
     darwinConfigurations."macbook" = nix-darwin.lib.darwinSystem {
       system = "aarch64-darwin";
-      modules = [
-        ./modules/darwin/default.nix
-        home-manager.darwinModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.atsu = import ./modules/home/default.nix;
-        }
-      ];
+      modules = import ./nix/hosts/macbook { inherit inputs; };
     };
   };
 }

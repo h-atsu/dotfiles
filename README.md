@@ -7,31 +7,47 @@ nix-darwin + home-manager によるmacOS環境管理
 ```
 dotfiles/
 ├── flake.nix                  # エントリーポイント
-├── modules/
-│   ├── darwin/
-│   │   ├── default.nix        # システムパッケージ、Homebrew cask設定
-│   │   └── system.nix         # macOS設定（Dock, Finder, キーリピート等）
-│   └── home/
-│       ├── default.nix        # home-managerエントリーポイント
-│       ├── wezterm.nix        # WezTerm設定ファイルの配置
-│       └── emacs.nix          # Emacs設定ファイルの配置
-└── config/
-    ├── wezterm/
-    │   └── wezterm.lua        # WezTerm設定ファイル
-    └── emacs/
-        └── init.el            # Emacs設定ファイル
+├── setup.sh                   # 初回bootstrap
+└── nix/
+    ├── hosts/
+    │   └── macbook/           # ホストごとの構成入口
+    ├── darwin/                # macOS全体の設定
+    │   ├── default.nix
+    │   ├── system.nix         # Dock, Finder, キーリピート等
+    │   ├── users.nix
+    │   ├── nix.nix            # Determinate Nixとの責務分担
+    │   └── homebrew.nix       # GUIアプリのHomebrew cask
+    ├── home/                  # home-managerの土台
+    ├── cli/                   # CLIツールをツール単位で管理
+    └── apps/                  # GUIアプリをアプリ単位で管理
+        ├── wezterm/
+        │   ├── default.nix
+        │   └── wezterm.lua
+        └── emacs/
+            ├── default.nix
+            └── init.el
 ```
 
 ## 初回セットアップ
 
-### 前提条件
+### bootstrap
 
-- [Determinate Nix](https://determinate.systems/nix/) がインストール済みであること
-- `nix-command` と `flakes` が有効であること（Determinate Nixはデフォルトで有効）
+Homebrew と Determinate Nix が未インストールの場合は `setup.sh` がインストールし、そのまま nix-darwin を適用します。
+
+```bash
+cd ~/dotfiles
+./setup.sh
+```
+
+`HOST` を指定すると別の flake output を適用できます。
+
+```bash
+HOST=macbook ./setup.sh
+```
 
 ### 初回適用
 
-nix-darwin が未インストールの状態から適用する場合:
+手動で nix-darwin を適用する場合:
 
 ```bash
 cd ~/dotfiles
@@ -51,13 +67,14 @@ sudo darwin-rebuild switch --flake .#macbook
 
 ### アプリ設定の運用
 
-`config/` 配下のファイルを正本として管理し、Home Manager が `~/.config` や `~/.emacs.d` に配置します。
-GUI アプリ本体は `nix-darwin` から Homebrew cask 経由でインストールします。
+各アプリのディレクトリに設定ファイルを同居させ、Home Manager が `~/.config` や `~/.emacs.d` に配置します。
+GUI アプリ本体も `nix/apps/<app>/default.nix` で Homebrew cask 経由でインストールします。
+CLI ツールは `nix/cli/<tool>/default.nix` で管理します。
 
-- `config/wezterm/wezterm.lua` → `~/.config/wezterm/wezterm.lua`
-- `config/emacs/init.el` → `~/.emacs.d/init.el`
+- `nix/apps/wezterm/wezterm.lua` → `~/.config/wezterm/wezterm.lua`
+- `nix/apps/emacs/init.el` → `~/.emacs.d/init.el`
 
-そのため、普段の試行錯誤は `config/` 配下のファイルを直接編集するのが基本です。
+そのため、普段の試行錯誤は `nix/apps/<app>/` 配下のファイルを直接編集するのが基本です。
 WezTerm のようにリロードできるアプリは、設定を編集してすぐ見た目を確認できます。
 
 新しいファイルを追加したり、配置先を変えたりした場合は `sudo darwin-rebuild switch --flake .#macbook` を実行してください。
@@ -75,11 +92,47 @@ WezTerm のようにリロードできるアプリは、設定を編集してす
 
 ### 新しいアプリをhome-managerで管理する場合
 
-1. `modules/home/` に `<app>.nix` を作成
-2. `modules/home/default.nix` の `imports` に追加
+1. `nix/apps/<app>/default.nix` を作成
+2. 設定ファイルがある場合は同じディレクトリに置く
+3. `nix/apps/default.nix` の `imports` に追加
+4. GUIアプリ本体が必要な場合は同じ `default.nix` に cask を追加
+5. `sudo darwin-rebuild switch --flake .#macbook` で適用
+
+例: `nix/apps/example/default.nix`
+
+```nix
+{ ... }: {
+  homebrew.casks = [
+    "example"
+  ];
+
+  home-manager.users.atsu = {
+    xdg.configFile."example/config.toml".source = ./config.toml;
+  };
+}
+```
+
+### 新しいCLIツールを管理する場合
+
+`nix/cli/<tool>/default.nix` を作成して、`nix/cli/default.nix` の `imports` に追加します。
+
+例: `nix/cli/ripgrep/default.nix`
+
+```nix
+{ pkgs, ... }: {
+  environment.systemPackages = [
+    pkgs.ripgrep
+  ];
+}
+```
+
+### 新しいCLI設定をhome-managerで管理する場合
+
+1. `nix/cli/<tool>/default.nix` を作成
+2. `nix/home/default.nix` または `nix/cli/default.nix` から import する
 3. `sudo darwin-rebuild switch --flake .#macbook` で適用
 
-例: `modules/home/git.nix`
+例: `nix/cli/git/default.nix`
 
 ```nix
 { ... }: {
@@ -93,7 +146,7 @@ WezTerm のようにリロードできるアプリは、設定を編集してす
 
 ### macOSシステム設定を変更する場合
 
-`modules/darwin/system.nix` を編集します。利用できるオプションは以下で確認:
+`nix/darwin/system.nix` を編集します。利用できるオプションは以下で確認:
 
 ```bash
 darwin-rebuild --help

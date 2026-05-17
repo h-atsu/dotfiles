@@ -1,9 +1,4 @@
 { ... }: {
-  imports = [
-    ./wezterm.nix
-    ./emacs.nix
-  ];
-
   home.username = "atsu";
   home.homeDirectory = "/Users/atsu";
 
