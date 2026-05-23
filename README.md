@@ -83,10 +83,30 @@ WezTerm のようにリロードできるアプリは、設定を編集してす
 
 | コマンド | 説明 |
 |---|---|
+| `pre-commit run --all-files` | formatter / lintを手動実行 |
+| `nix flake check` | flake評価を検証 |
 | `sudo darwin-rebuild switch --flake '.#macbook'` | 設定を適用 |
 | `darwin-rebuild check --flake '.#macbook'` | 適用前に構文チェック |
 | `nix flake update` | すべての入力を最新に更新 |
 | `nix flake update nixpkgs` | nixpkgsだけ更新 |
+
+### pre-commit
+
+pre-commit hooks は `.pre-commit-config.yaml` で管理しています。
+初回、または hook を入れ直したい場合:
+
+```bash
+pre-commit install
+```
+
+現在の hook は以下を実行します:
+
+- `alejandra`
+- `deadnix`
+- `statix`
+
+これらのNix用formatter/linterは `flake.nix` の devShell で管理し、hook実行時に `nix develop -c ...` 経由で呼び出します。
+GitHub Actions では `nix flake check --print-build-logs` と `pre-commit run --all-files` を実行します。
 
 ## 設定の追加方法
 

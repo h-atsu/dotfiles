@@ -13,10 +13,25 @@
     };
   };
 
-  outputs = inputs@{ nix-darwin, ... }: {
+  outputs = inputs @ {
+    nix-darwin,
+    nixpkgs,
+    ...
+  }: let
+    system = "aarch64-darwin";
+    pkgs = import nixpkgs {inherit system;};
+  in {
+    devShells.${system}.default = pkgs.mkShell {
+      packages = [
+        pkgs.alejandra
+        pkgs.deadnix
+        pkgs.statix
+      ];
+    };
+
     darwinConfigurations."macbook" = nix-darwin.lib.darwinSystem {
-      system = "aarch64-darwin";
-      modules = import ./nix/hosts/macbook { inherit inputs; };
+      inherit system;
+      modules = import ./nix/hosts/macbook {inherit inputs;};
     };
   };
 }

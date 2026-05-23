@@ -6,7 +6,6 @@
 .direnv/
 .devenv*
 devenv.local.nix
-.pre-commit-config.yaml
 .tool-versions
 
 # local AI/tool state

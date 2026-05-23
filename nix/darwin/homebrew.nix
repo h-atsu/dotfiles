@@ -1,9 +1,9 @@
-{ ... }: {
+_: {
   homebrew = {
     enable = true;
     onActivation = {
       cleanup = "uninstall";
-      extraFlags = [ "--verbose" ];
+      extraFlags = ["--verbose"];
     };
   };
 }
