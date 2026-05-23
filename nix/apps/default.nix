@@ -1,5 +1,6 @@
 _: {
   imports = [
+    ./codex
     ./discord
     ./docker-desktop
     ./emacs

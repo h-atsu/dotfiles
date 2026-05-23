@@ -2,6 +2,7 @@ _: {
   home-manager.users.atsu = {
     home.sessionPath = [
       "$HOME/.local/bin"
+      "/opt/homebrew/bin"
     ];
 
     programs.zsh = {

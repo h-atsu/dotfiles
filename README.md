@@ -61,8 +61,7 @@ sudo nix run nix-darwin -- switch --flake '.#macbook'
 設定を変更した後は以下のコマンドで適用します:
 
 ```bash
-cd ~/dotfiles
-sudo darwin-rebuild switch --flake '.#macbook'
+sudo darwin-rebuild switch --flake "$HOME/dotfiles#macbook"
 ```
 
 ### アプリ設定の運用
@@ -77,7 +76,7 @@ CLI ツールは `nix/cli/<tool>/default.nix` で管理します。
 そのため、普段の試行錯誤は `nix/apps/<app>/` 配下のファイルを直接編集するのが基本です。
 WezTerm のようにリロードできるアプリは、設定を編集してすぐ見た目を確認できます。
 
-新しいファイルを追加したり、配置先を変えたりした場合は `sudo darwin-rebuild switch --flake '.#macbook'` を実行してください。
+新しいファイルを追加したり、配置先を変えたりした場合は `sudo darwin-rebuild switch --flake "$HOME/dotfiles#macbook"` を実行してください。
 
 ### よく使うコマンド
 
@@ -85,8 +84,8 @@ WezTerm のようにリロードできるアプリは、設定を編集してす
 |---|---|
 | `pre-commit run --all-files` | formatter / lintを手動実行 |
 | `nix flake check` | flake評価を検証 |
-| `sudo darwin-rebuild switch --flake '.#macbook'` | 設定を適用 |
-| `darwin-rebuild check --flake '.#macbook'` | 適用前に構文チェック |
+| `sudo darwin-rebuild switch --flake "$HOME/dotfiles#macbook"` | 設定を適用 |
+| `darwin-rebuild check --flake "$HOME/dotfiles#macbook"` | 適用前に構文チェック |
 | `nix flake update` | すべての入力を最新に更新 |
 | `nix flake update nixpkgs` | nixpkgsだけ更新 |
 
@@ -116,7 +115,7 @@ GitHub Actions では `nix flake check --print-build-logs` と `pre-commit run -
 2. 設定ファイルがある場合は同じディレクトリに置く
 3. `nix/apps/default.nix` の `imports` に追加
 4. GUIアプリ本体が必要な場合は同じ `default.nix` に cask を追加
-5. `sudo darwin-rebuild switch --flake '.#macbook'` で適用
+5. `sudo darwin-rebuild switch --flake "$HOME/dotfiles#macbook"` で適用
 
 例: `nix/apps/example/default.nix`
 
@@ -150,7 +149,7 @@ GitHub Actions では `nix flake check --print-build-logs` と `pre-commit run -
 
 1. `nix/cli/<tool>/default.nix` を作成
 2. `nix/home/default.nix` または `nix/cli/default.nix` から import する
-3. `sudo darwin-rebuild switch --flake '.#macbook'` で適用
+3. `sudo darwin-rebuild switch --flake "$HOME/dotfiles#macbook"` で適用
 
 例: `nix/cli/git/default.nix`
 
