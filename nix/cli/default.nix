@@ -3,6 +3,7 @@
     ./eza
     ./git
     ./htop
+    ./pre-commit
     ./rustup
     ./starship
     ./tree
