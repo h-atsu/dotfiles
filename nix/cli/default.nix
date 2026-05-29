@@ -4,6 +4,7 @@ _: {
     ./codex
     ./eza
     ./git
+    ./google-cloud-sdk
     ./htop
     ./nodejs
     ./pre-commit
