@@ -1,15 +1,17 @@
 {
-  "workbench.colorTheme": "Dracula Theme",
-  "workbench.iconTheme": "material-icon-theme",
-  "workbench.tree.indent": 20,
-  "terminal.integrated.fontFamily": "JetBrains Mono, PlemolJP Console, Symbols Nerd Font Mono",
-  "claudeCode.preferredLocation": "panel",
   "[python]": {
-    "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
       "source.fixAll.ruff": "explicit",
       "source.organizeImports.ruff": "explicit"
     },
-    "editor.defaultFormatter": "charliermarsh.ruff"
-  }
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.formatOnSave": true
+  },
+  "claudeCode.preferredLocation": "panel",
+  "terminal.integrated.fontFamily": "JetBrains Mono, PlemolJP Console, Symbols Nerd Font Mono",
+  "workbench.colorTheme": "Dracula Theme",
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.tree.indent": 20,
+  "explorer.confirmDragAndDrop": false,
+  "remote.autoForwardPortsSource": "hybrid"
 }

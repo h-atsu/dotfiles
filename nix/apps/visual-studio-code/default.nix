@@ -3,14 +3,13 @@
     "visual-studio-code"
   ];
 
-  home-manager.users.atsu = {
+  home-manager.users.atsu = {config, ...}: {
     programs.vscode = {
       enable = true;
       package = null;
       mutableExtensionsDir = true;
 
       profiles.default = {
-        userSettings = builtins.fromJSON (builtins.readFile ./settings.json);
         keybindings = builtins.fromJSON (builtins.readFile ./keybindings.json);
         globalSnippets = builtins.fromJSON (builtins.readFile ./snippets/global.code-snippets);
 
@@ -27,5 +26,9 @@
         ];
       };
     };
+
+    home.file."Library/Application Support/Code/User/settings.json".source =
+      config.lib.file.mkOutOfStoreSymlink
+      "${config.home.homeDirectory}/dotfiles/nix/apps/visual-studio-code/settings.json";
   };
 }
