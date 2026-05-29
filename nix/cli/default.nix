@@ -4,6 +4,7 @@ _: {
     ./codex
     ./eza
     ./git
+    ./github-cli
     ./google-cloud-sdk
     ./htop
     ./nodejs
@@ -14,6 +15,7 @@ _: {
     ./tree
     ./trash
     ./uv
+    ./zellij
     ./zsh
   ];
 }
