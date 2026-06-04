@@ -21,6 +21,7 @@ config.macos_window_background_blur = 20
 config.hide_tab_bar_if_only_one_tab = true
 config.show_tabs_in_tab_bar = true
 config.window_decorations = "RESIZE"
+config.window_close_confirmation = "NeverPrompt"
 
 wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
   local background = "#5c6d74"
