@@ -13,6 +13,7 @@ _: {
     ./tree
     ./trash
     ./zellij
+    ./zoxide
     ./zsh
   ];
 }
