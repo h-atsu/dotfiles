@@ -61,8 +61,11 @@ sudo nix run nix-darwin -- switch --flake '.#macbook'
 設定を変更した後は以下のコマンドで適用します:
 
 ```bash
-sudo darwin-rebuild switch --flake "$HOME/dotfiles#macbook"
+make install
 ```
+
+`make install` は nix-darwin を適用したあと、mise の global tools をインストールします。
+nix-darwin だけを適用する場合は `make switch` を使います。
 
 ### アプリ設定の運用
 
@@ -83,6 +86,9 @@ WezTerm のようにリロードできるアプリは、設定を編集してす
 
 | コマンド | 説明 |
 |---|---|
+| `make install` | nix-darwinを適用し、mise toolsをインストール |
+| `make switch` | nix-darwinを適用 |
+| `make check` | flake評価とdarwin構成を検証 |
 | `mise install` | `~/.config/mise/config.toml` に宣言したツールをインストール |
 | `pre-commit run --all-files` | formatter / lintを手動実行 |
 | `nix flake check` | flake評価を検証 |

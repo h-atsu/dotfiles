@@ -1,5 +1,4 @@
 [tools]
 node = "22"
 uv = "latest"
-pnpm = "latest"
 rust = "latest"
