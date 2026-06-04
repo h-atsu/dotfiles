@@ -1,5 +1,6 @@
 _: {
   imports = [
+    ./carapace
     ./claude-code
     ./codex
     ./eza
