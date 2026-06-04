@@ -13,6 +13,7 @@ _: {
     ./starship
     ./tree
     ./trash
+    ./yazi
     ./zellij
     ./zoxide
     ./zsh
