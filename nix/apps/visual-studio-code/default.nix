@@ -18,6 +18,7 @@
           ms-python.python
           ms-python.vscode-pylance
           rust-lang.rust-analyzer
+          yzhang.markdown-all-in-one
           gruntfuggly.todo-tree
           pkief.material-icon-theme
           dracula-theme.theme-dracula

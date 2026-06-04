@@ -13,5 +13,13 @@
   "workbench.iconTheme": "material-icon-theme",
   "workbench.tree.indent": 20,
   "explorer.confirmDragAndDrop": false,
-  "remote.autoForwardPortsSource": "hybrid"
+  "remote.autoForwardPortsSource": "hybrid",
+  "explorer.confirmDelete": false,
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/*.pyc": true,
+    "**/.pytest_cache": true,
+    "**/.mypy_cache": true,
+    "**/.ruff_cache": true
+  }
 }
