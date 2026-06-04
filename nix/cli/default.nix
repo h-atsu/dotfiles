@@ -7,14 +7,11 @@ _: {
     ./github-cli
     ./google-cloud-sdk
     ./htop
-    ./nodejs
+    ./mise
     ./pre-commit
-    ./pnpm
-    ./rustup
     ./starship
     ./tree
     ./trash
-    ./uv
     ./zellij
     ./zsh
   ];

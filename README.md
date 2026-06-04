@@ -69,6 +69,7 @@ sudo darwin-rebuild switch --flake "$HOME/dotfiles#macbook"
 各アプリのディレクトリに設定ファイルを同居させ、Home Manager が `~/.config` や `~/.emacs.d` に配置します。
 GUI アプリ本体も `nix/apps/<app>/default.nix` で Homebrew cask 経由でインストールします。
 CLI ツールは `nix/cli/<tool>/default.nix` で管理します。
+言語ランタイムやプロジェクト依存のCLIは mise で管理し、global tools は `nix/cli/mise/config.toml` に宣言します。
 
 - `nix/apps/wezterm/wezterm.lua` → `~/.config/wezterm/wezterm.lua`
 - `nix/apps/emacs/init.el` → `~/.emacs.d/init.el`
@@ -82,6 +83,7 @@ WezTerm のようにリロードできるアプリは、設定を編集してす
 
 | コマンド | 説明 |
 |---|---|
+| `mise install` | `~/.config/mise/config.toml` に宣言したツールをインストール |
 | `pre-commit run --all-files` | formatter / lintを手動実行 |
 | `nix flake check` | flake評価を検証 |
 | `sudo darwin-rebuild switch --flake "$HOME/dotfiles#macbook"` | 設定を適用 |
@@ -134,6 +136,27 @@ GitHub Actions では `nix flake check --print-build-logs` と `pre-commit run -
 ### 新しいCLIツールを管理する場合
 
 `nix/cli/<tool>/default.nix` を作成して、`nix/cli/default.nix` の `imports` に追加します。
+ただし、Node.js / Python / Rust などの言語ランタイムや、プロジェクトごとにバージョンを揃えたい CLI は mise 側で管理します。
+
+mise の global tool を追加する場合は `nix/cli/mise/config.toml` を編集します。
+
+例: `nix/cli/mise/config.toml`
+
+```toml
+[tools]
+node = "22"
+python = "3.12"
+uv = "latest"
+```
+
+プロジェクトでだけ必要な CLI は、そのリポジトリの `.mise.toml` に追加します。
+
+例:
+
+```toml
+[tools]
+oras = "latest"
+```
 
 例: `nix/cli/ripgrep/default.nix`
 
