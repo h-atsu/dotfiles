@@ -24,6 +24,7 @@
           dracula-theme.theme-dracula
           tuttieee.emacs-mcx
           ms-vscode-remote.remote-ssh
+          hediet.vscode-drawio
         ];
       };
     };

@@ -22,5 +22,7 @@
     "**/.mypy_cache": true,
     "**/.ruff_cache": true
   },
-  "workbench.browser.openLocalhostLinks": false
+  "workbench.browser.openLocalhostLinks": false,
+  "hediet.vscode-drawio.resizeImages": null,
+  "markdown.extension.list.indentationSize": "inherit"
 }
