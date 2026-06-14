@@ -13,6 +13,7 @@ _: {
     ./pre-commit
     ./ripgrep
     ./starship
+    ./terraform
     ./tree
     ./trash
     ./yazi
