@@ -1,5 +1,6 @@
 _: {
   imports = [
+    ./aws-cli
     ./carapace
     ./claude-code
     ./codex
