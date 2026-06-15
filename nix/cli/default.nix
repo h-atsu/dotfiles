@@ -18,6 +18,7 @@ _: {
     ./terraform
     ./tree
     ./trash
+    ./typst
     ./yazi
     ./zellij
     ./zoxide

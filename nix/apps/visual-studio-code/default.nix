@@ -25,6 +25,8 @@
           tuttieee.emacs-mcx
           ms-vscode-remote.remote-ssh
           hediet.vscode-drawio
+          myriad-dreamin.tinymist
+          tomoki1207.pdf
         ];
       };
     };
