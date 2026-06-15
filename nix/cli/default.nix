@@ -10,6 +10,7 @@ _: {
     ./github-cli
     ./google-cloud-sdk
     ./htop
+    ./libomp
     ./mise
     ./pre-commit
     ./ripgrep
